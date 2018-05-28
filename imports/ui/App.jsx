@@ -24,6 +24,8 @@ export default class App extends Component {
           <h1>Todo List</h1>
         </header>
  
+        <input type="file" />
+
         <ul>
           {this.renderTasks()}
         </ul>

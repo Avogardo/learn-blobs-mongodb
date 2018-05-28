@@ -1,3 +1,5 @@
+import '/imports/api/images';
+
 import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
