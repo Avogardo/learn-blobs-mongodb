@@ -1,10 +1,10 @@
 FS.debug = true;
 
 var eventPhotosStore = new FS.Store.FileSystem('eventPhotos', {
-  path: '~/uploads/full'
+  path: '~/uploads'
 });
 
-eventPhotos = new FS.Collection('eventPhotos', {
+const eventPhotos = new FS.Collection('eventPhotos', {
   stores: [eventPhotosStore]
 });
 eventPhotos.allow({
@@ -22,6 +22,18 @@ eventPhotos.allow({
   }
 });
 
-events = new Meteor.Collection('events');
+const events = new Meteor.Collection('events');
 
-export { eventPhotos };
+const showCollections = () => {
+  const photos = events.find();
+  console.log(photos);
+  console.log(photos.fetch());
+
+  const photos1 = eventPhotos.find();
+  console.log(photos1);
+  console.log(photos1.fetch());
+
+  console.log(eventPhotosStore);
+};
+
+export { eventPhotos, events, eventPhotosStore, showCollections };

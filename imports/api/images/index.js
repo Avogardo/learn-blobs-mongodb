@@ -1,1 +1,6 @@
-export eventPhotos from './methods';
+export {
+  eventPhotos,
+  events,
+  eventPhotosStore,
+  showCollections,
+} from './methods';
