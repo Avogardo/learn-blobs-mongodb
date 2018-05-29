@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
-import { createContainer } from 'meteor/react-meteor-data'
-import { HTTP } from 'meteor/http'
-import { eventPhotos, events, testMethod } from '../api/images';
+import { createContainer } from 'meteor/react-meteor-data';
+import { eventPhotos, events } from '../api/images';
  
 class App extends Component {
   renderTasks(images, events) {
-    if (images.length) {
-      testMethod(images[0].url({brokenIsFine: true}));
-      HTTP.get(images[0].url({brokenIsFine: true}), (err,result) => {
-        // this will be async obviously
-        if (err) console.log(err);
-        else {
-          const content = result.content; // the contents of the file
-          // now do something with it
-          console.log(content);
-        }
-      });
-
-      return images.map((image, index) => {
-        console.log(image.url({brokenIsFine: true}));
+    if (events.length) {
+      return events.map((event, index) => {
+        const blob = new Blob( [event.file], { type: "image/jpeg" } );
+        const urlCreator = window.URL || window.webkitURL;
+        const imageUrl = urlCreator.createObjectURL( blob );
         return <img
-          key={`image${index}`}
-          src={image.url({brokenIsFine: true})}
+          key={`photo${index}`}
+          src={imageUrl}
         />
       });
     }
@@ -36,10 +26,18 @@ class App extends Component {
       }
     });
     console.log('Upload result: ', fileOb);
-    events.insert({
-      name: 'event',
-      file: fileOb
-    });
+
+    const reader = new FileReader(); //create a reader according to HTML5 File API
+
+    reader.onload = event => {
+      const buffer = new Uint8Array(reader.result); // convert to binary
+      events.insert({
+        name: 'event',
+        file: buffer
+      });
+    };
+
+    reader.readAsArrayBuffer(file); //read the file as arraybuffer
   }
  
   render() {
