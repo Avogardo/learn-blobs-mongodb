@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
-import { eventPhotos, events, eventPhotosStore, showCollections } from '../api/images';
- 
-import Task from './Task.jsx';
+import { eventPhotos, events } from '../api/images';
  
 class App extends Component {
-  getTasks() {
-    return [
-      { _id: 1, text: 'This is task 1' },
-      { _id: 2, text: 'This is task 2' },
-      { _id: 3, text: 'This is task 3' },
-    ];
-  }
- 
   renderTasks(images) {
     if (images.length) {
       console.log(images[0]);
@@ -27,9 +17,6 @@ class App extends Component {
         />
       );
     }
-    // return this.getTasks().map((task) => (
-    //   <Task key={task._id} task={task} />
-    // ));
   }
 
   onChange(files) {
