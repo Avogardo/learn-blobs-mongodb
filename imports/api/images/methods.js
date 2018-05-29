@@ -1,4 +1,6 @@
-FS.debug = true;
+import { HTTP } from 'meteor/http'
+
+// FS.debug = true;
 
 const eventPhotosStore = new FS.Store.FileSystem('eventPhotos', {
   path: '~/uploads'
@@ -22,6 +24,18 @@ eventPhotos.allow({
   }
 });
 
+const testMethod = url => {
+  HTTP.get(url, (err,result) => {
+    // this will be async obviously
+    if (err) console.log(err);
+    else {
+      const content = result.content; // the contents of the file
+      // now do something with it
+      console.log(content);
+    }
+  });
+};
+
 const events = new Meteor.Collection('events');
 
-export { eventPhotos, events };
+export { eventPhotos, events, testMethod };
