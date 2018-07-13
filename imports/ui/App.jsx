@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { eventPhotos, events } from '../api/images';
- 
+
 class App extends Component {
   renderTasks(images, events) {
     if (events.length) {
@@ -10,6 +10,7 @@ class App extends Component {
         const urlCreator = window.URL || window.webkitURL;
         const imageUrl = urlCreator.createObjectURL( blob );
         return <img
+        style={{width: '400px'}}
           key={`photo${index}`}
           src={imageUrl}
         />
@@ -39,14 +40,14 @@ class App extends Component {
 
     reader.readAsArrayBuffer(file); //read the file as arraybuffer
   }
- 
+
   render() {
     return (
       <div className="container">
         <header>
           <h1>Import files</h1>
         </header>
- 
+
         <input type="file" onChange={(e) => this.onChange(e.target.files)} />
 
         <ul>
